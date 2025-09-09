@@ -1,0 +1,49 @@
+venv/
+.env
+**/**.py[cod]
+__pycache__/
+
+# Logs
+logs/
+*.log
+**/**.log
+**/**.out
+
+
+db.sqlite3
+.idea/
+envs/.env
+.env.override
+data/
+
+**/**.sw[op]
+
+# MacOS files
+**/.DS_Store
+newrelic.ini
+
+# Certificate files
+envs/*.crt
+
+# PID files
+*.pid
+**/**.pid
+
+# Static files
+staticfiles/
+
+# SQLite database files
+*.sqlite3
+**/**.sqlite
+
+# Exported data and Import files
+*.csv
+**/**.csv
+*.xlsx
+**/**.xlsx
+
+# SonarQube files
+.sonarqube/
+.sonar/
+.scannerwork/
+
