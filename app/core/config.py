@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "a-very-secret-key"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    TELEGRAM_BOT_TOKEN: str = "7399222125:AAGw45eR4V8cswcZC-jGRDWviy6VdiX4WAo"
+    
 
     @model_validator(mode='before')
     def assemble_db_connection(cls, v: Any) -> Any:

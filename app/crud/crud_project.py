@@ -9,6 +9,10 @@ def get_project(db: Session, project_id: int) -> Optional[Project]:
 
 def get_projects(db: Session, skip: int = 0, limit: int = 100) -> List[Project]:
     return db.query(Project).offset(skip).limit(limit).all()
+def get_projects_by_user(db: Session, user_id: int, skip: int = 0, limit: int = 100) -> List[Project]:
+    return db.query(Project).filter(Project.created_by == user_id).offset(skip).limit(limit).all()
+
+
 
 def create_project(db: Session, project: ProjectCreate) -> Project:
     db_project = Project(**project.dict())

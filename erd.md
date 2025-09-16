@@ -5,6 +5,7 @@
 │ name                  │
 │ email                 │
 │ telegram_id           │
+│ telegram_chat_id      │
 │ role                  │  (admin/member)
 └───────────────────────┘
 

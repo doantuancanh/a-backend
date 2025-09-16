@@ -18,6 +18,7 @@ def login_access_token(
     OAuth2 compatible token login, get an access token for future requests
     """
     user = crud_user.get_user_by_email(db, email=form_data.username)
+
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

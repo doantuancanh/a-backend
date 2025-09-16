@@ -6,5 +6,7 @@ alembic
 pydantic-settings
 passlib[bcrypt]
 python-jose[cryptography]
+python-telegram-bot
+
 
 

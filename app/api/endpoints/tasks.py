@@ -5,12 +5,13 @@ from typing import List
 from app.api import deps
 from app.db.base import User
 from app.schemas.task import Task, TaskCreate, TaskUpdate
-from app.crud import crud_task, crud_project
+from app.crud import crud_task, crud_project, crud_user
+from app.services.notification_service import notification_service
 
 router = APIRouter()
 
 @router.post("/projects/{project_id}/tasks/", response_model=Task)
-def create_task_for_project(
+async def create_task_for_project(
     project_id: int,
     task_in: TaskCreate,
     db: Session = Depends(deps.get_db),
@@ -20,7 +21,14 @@ def create_task_for_project(
     if not db_project:
         raise HTTPException(status_code=404, detail="Project not found")
     task_in.project_id = project_id
-    return crud_task.create_task(db=db, task=task_in)
+    created_task = crud_task.create_task(db=db, task=task_in)
+
+    # Send notification to the project owner
+    project_owner = db_project.created_by_user
+    if project_owner:
+        await notification_service.send_task_creation_notification(user=project_owner, task=created_task)
+
+    return created_task
 
 @router.get("/projects/{project_id}/tasks/", response_model=List[Task])
 def read_tasks_for_project(

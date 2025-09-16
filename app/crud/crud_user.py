@@ -10,6 +10,10 @@ def get_user(db: Session, user_id: int) -> Optional[User]:
 def get_user_by_email(db: Session, email: str) -> Optional[User]:
     return db.query(User).filter(User.email == email).first()
 
+def get_user_by_telegram_chat_id(db: Session, chat_id: str) -> Optional[User]:
+    return db.query(User).filter(User.telegram_chat_id == chat_id).first()
+
+
 def get_users(db: Session, skip: int = 0, limit: int = 100) -> List[User]:
     return db.query(User).offset(skip).limit(limit).all()
 
@@ -35,7 +39,7 @@ def update_user(db: Session, user_id: int, user: UserUpdate) -> Optional[User]:
             hashed_password = get_password_hash(update_data["password"])
             update_data["hashed_password"] = hashed_password
             del update_data["password"]
-        
+
         for key, value in update_data.items():
             setattr(db_user, key, value)
         db.commit()

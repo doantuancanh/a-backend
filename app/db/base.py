@@ -24,6 +24,7 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     telegram_id = Column(String, unique=True, index=True, nullable=True)
+    telegram_chat_id = Column(String, unique=True, index=True, nullable=True)
     role = Column(SQLAlchemyEnum(UserRole), nullable=False, default=UserRole.member)
     is_active = Column(Boolean(), default=True)
     projects = relationship("Project", back_populates="created_by_user")
